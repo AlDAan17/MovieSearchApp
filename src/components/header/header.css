@@ -1,0 +1,17 @@
+/*.ant-layout-content{*/
+/*    background: #fff;*/
+/*}*/
+
+.menu{
+    display: flex;
+    justify-content:center;
+}
+
+.header__form{
+    margin-top: 20px;
+    text-align: center;
+}
+
+/*.menu-input {*/
+/*    width: 92%;*/
+/*}*/

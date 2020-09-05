@@ -1,0 +1,39 @@
+.movie {
+    width: 450px;
+    height: 300px;
+    padding: 0;
+    display: flex;
+    box-shadow: 5px 5px 9px -10px black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.movie:nth-child(1),
+.movie:nth-child(2){
+    margin-top: 32px;
+}
+
+.movie__content {
+    padding: 10px 10px 10px 15px;
+    font-size: 0.8rem;
+}
+
+.movie__image{
+    max-width: 200px;
+    max-height: 300px;
+}
+
+.movie__genre{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.movie__genre-item{
+    margin: 1px 8px 2px 0;
+}
+
+@media(min-width: 1283px) {
+    .movie:nth-child(2){
+        margin-top: 20px;
+    }
+}

@@ -1,0 +1,17 @@
+@import "../../../node_modules/antd/dist/antd.css";
+.main-content{
+  background:#fff;
+}
+
+.sider{
+  /*width: 14.93% !important;*/
+  background: #F7F7F7;
+  min-height: 100vh;
+}
+
+.spinner{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
