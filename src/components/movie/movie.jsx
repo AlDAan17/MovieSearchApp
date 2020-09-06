@@ -10,7 +10,7 @@ export default class Movie extends React.Component {
         const {poster_path: poster, title, overview: description, release_date: date, genre_ids: genreId } = this.props.movie;
         const {genres, loadingGenres} = this.props;
         const {Title, Text, Paragraph} = Typography;
-        const dateFormat = format(new Date(date), "LLLL d, y");
+        const dateFormat = date ? format(new Date(date), "LLLL d, y") : null ;
 
         let genresDisplay;
         if(loadingGenres) genresDisplay = <Spin />;

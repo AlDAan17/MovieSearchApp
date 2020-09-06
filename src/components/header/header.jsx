@@ -9,15 +9,35 @@ export default class Header extends React.Component{
 
     state = {
         current: 'mail',
+        value: '',
     };
+
+    debounce = (fn, ms) =>{
+      let timeout;
+      return function (trim) {
+        const fnCall = () => {fn.apply(this, arguments)};
+        clearTimeout(timeout);
+        timeout = setTimeout(fnCall, ms);
+      }
+    };
+
+    componentDidMount() {
+        const {getQuery} = this.props;
+        this.queryDebounce = this.debounce(getQuery, 1000)
+    }
+
     changeField = (e) => {
-        console.log(e.target.value);
-        this.setState({ query: e.target.value });
+        const {value} = e.target;
+        this.queryDebounce(value.trim());
+        this.setState({ value });
     };
+
+    onSubmit = (e) =>{
+        e.preventDefault();
+    }
 
     render(){
-        const {current} = this.state;
-
+        const {current, value} = this.state;
         return(
             <span className="span">
                 <Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal" className='menu'>
@@ -25,16 +45,13 @@ export default class Header extends React.Component{
                     <Menu.Item>Rated</Menu.Item>
                 </Menu>
 
-                <form onSubmit={this.searchMovies} className="header__form">
+                <form onSubmit={this.onSubmit} className="header__form">
                     <Input style={{width: ' 92.87%'}} placeholder="Type to search..."
-                           // value={query}
-                           // onChange={this.changeField}
+                           value={value}
+                           onChange={this.changeField}
                            // ref={this.editInput}
                            allowClear/>
                 </form>
-                {/*{this.state.rows}*/}
-                {/*<MovieList movies={movies}/>*/}
-                {/*{movies}*/}
             </span>
         );
     }

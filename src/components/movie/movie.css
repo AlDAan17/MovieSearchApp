@@ -8,10 +8,10 @@
     margin-bottom: 20px;
 }
 
-.movie:nth-child(1),
-.movie:nth-child(2){
-    margin-top: 32px;
-}
+/*.movie:nth-child(1),*/
+/*.movie:nth-child(2){*/
+/*    margin-top: 32px;*/
+/*}*/
 
 .movie__content {
     padding: 10px 10px 10px 15px;
