@@ -1,13 +1,12 @@
-/*.ant-layout-content{*/
-/*    background: #fff;*/
-/*}*/
-
 .menu{
-    display: flex;
-    justify-content:center;
+    text-align: center;
 }
 
-.header__form{
+.menu__item{
+    display: inline-block;
+}
+
+.menu__form{
     display: flex;
     justify-content:center;
     margin-top: 20px;

@@ -1,35 +1,21 @@
 import React from "react";
 import './header.css';
 import {Input, Menu} from "antd";
-// import MovieList from "../movie-list";
-// import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
-// import MovieService from './../../services/movie-service'
+import debounce from 'lodash/debounce'
 export default class Header extends React.Component{
-    editInput = React.createRef();
-
     state = {
-        current: 'mail',
-        value: '',
-    };
-
-    debounce = (fn, ms) =>{
-      let timeout;
-      return function (trim) {
-        const fnCall = () => {fn.apply(this, arguments)};
-        clearTimeout(timeout);
-        timeout = setTimeout(fnCall, ms);
-      }
+        value: this.props.query,
     };
 
     componentDidMount() {
         const {getQuery} = this.props;
-        this.queryDebounce = this.debounce(getQuery, 1000)
+        this.queryDebounce = debounce(getQuery, 1000)
     }
 
-    changeField = (e) => {
-        const {value} = e.target;
-        this.queryDebounce(value.trim());
+    changeField = (event) => {
+        const {value} = event.target;
         this.setState({ value });
+        this.queryDebounce(value.trim());
     };
 
     onSubmit = (e) =>{
@@ -37,22 +23,26 @@ export default class Header extends React.Component{
     }
 
     render(){
-        const {current, value} = this.state;
-        return(
-            <span className="span">
-                <Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal" className='menu'>
-                    <Menu.Item  key="mail">Search</Menu.Item>
-                    <Menu.Item>Rated</Menu.Item>
-                </Menu>
+        const {value} = this.state;
+        const {current, selectTab} = this.props
 
-                <form onSubmit={this.onSubmit} className="header__form">
-                    <Input style={{width: ' 92.87%'}} placeholder="Type to search..."
-                           value={value}
-                           onChange={this.changeField}
-                           // ref={this.editInput}
-                           allowClear/>
-                </form>
-            </span>
+        const searchBar = current === 'search' ? (
+            <form onSubmit={this.onSubmit} className="menu__form">
+                <Input style={{width: '92.87%'}} placeholder="Type to search..."
+                       value={value}
+                       onChange={this.changeField}
+                       allowClear/>
+            </form>
+        ) : null;
+
+        return(
+            <div className="menu">
+                <Menu onSelect={selectTab} selectedKeys={[current]} mode="horizontal" className='menu__item'>
+                    <Menu.Item  key="search">Search</Menu.Item>
+                    <Menu.Item key="rated">Rated</Menu.Item>
+                </Menu>
+                {searchBar}
+            </div>
         );
     }
 }

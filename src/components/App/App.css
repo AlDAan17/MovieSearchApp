@@ -1,10 +1,11 @@
 @import "../../../node_modules/antd/dist/antd.css";
+
 .main-content{
   background:#fff;
 }
 
 .sider{
-  /*width: 14.93% !important;*/
+  /*width: 14.93%;*/
   background: #F7F7F7;
   min-height: 100vh;
 }
@@ -20,4 +21,12 @@
   margin-top: 30px;
   margin-bottom: 20px;
   text-align: center;
+}
+
+.ant-pagination-item-active{
+  background: #1890FF;
+  border-radius: 4px;
+}
+.ant-pagination-item-active a{
+  color: #fff
 }
