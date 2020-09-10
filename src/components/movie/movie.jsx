@@ -17,8 +17,9 @@ export default class Movie extends React.Component {
         const {id} = movie;
         if(value === 0){
             this.movieService.deleteRateMovie(guestId, id);
+        }else {
+            this.movieService.rateFilm(value, guestId, id);
         }
-        this.movieService.rateFilm(value, guestId, id);
         updateCache(movie, value);
     }
 

@@ -9,13 +9,7 @@ function Rating({value}) {
     if (value > 7) color = '#66E900';
 
     const style = {
-        width: '30px',
-        height: '30px',
-        borderRadius: '50%',
-        border: `2px solid ${color}`,
-        textAlign: 'center',
-        fontWeight: 'bold',
-        lineHeight: '25px',
+        border: `2px solid ${color}`
     }
 
     return(

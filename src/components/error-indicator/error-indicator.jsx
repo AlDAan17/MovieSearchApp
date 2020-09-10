@@ -1,6 +1,7 @@
 import React from "react";
 import {Alert} from "antd";
 import { FrownOutlined } from '@ant-design/icons';
+import './error-indicator.css';
 
 
 const ErrorIndicator = ({message = "Ooops",
@@ -13,6 +14,7 @@ const ErrorIndicator = ({message = "Ooops",
                type={type}
                icon={<FrownOutlined twoToneColor={color} />}
                showIcon
+               className="error"
                />
     );
 }

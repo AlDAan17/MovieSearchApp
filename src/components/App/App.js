@@ -12,25 +12,27 @@ export default class App extends React.Component {
 
     movieService = new MovieService();
 
+    cache = [];
+
     state = {
         windowWidth: window.innerWidth,
-        movies: null,
-        genres:'',
+        movies: [],
+        genres:[],
         loading:false,
         loadingGenres:true,
         error:false,
         query:'',
-        page: null,
+        page: 1,
         totalMoviesResults: null,
         currentTab: 'search',
         guestId: null,
     };
 
-    cache = [];
 
     componentDidMount() {
         window.addEventListener('resize', this.updateWidth)
         this.setGuestId();
+        this.updateGenres();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -38,7 +40,6 @@ export default class App extends React.Component {
         if (prevState.query !== query || prevState.page !== page || prevState.currentTab !== currentTab) {
             if (currentTab === 'search') this.updateMovies(query, page);
             if (currentTab === 'rated') this.updateRatedFilms(guestId, page, 'en');
-            this.updateGenres();
         }
     }
 
@@ -51,7 +52,7 @@ export default class App extends React.Component {
             .getRatedFilms(guestId, page, language)
             .then((response) => {
                 this.setState({
-                    movies: response.results,
+                    movies: !response.results ? [] : response.results,
                     loading: false,
                     totalCards: response.total_results,
                 });
@@ -61,7 +62,7 @@ export default class App extends React.Component {
 
     updateMovies(query, page){
         this.movieService.getMovies(query, page).then((res) =>{
-            const movies = this.renovation(res.results, this.cache);
+            const movies = this.renovation(!res.results ? [] : res.results, this.cache);
             console.log(movies)
             this.setState({
                 movies,
@@ -154,7 +155,7 @@ export default class App extends React.Component {
         const spinner = loading ? <Spin indicator={<LoadingOutlined style={{ fontSize: 55 }}/>}
                               className="spinner" tip= "Loading..."/> : null;
         const errorMessage = error ? <ErrorIndicator/> : null;
-        const hasData = !(error || loading || !query);
+        const hasData = !(error || loading);
         const content = hasData ? (
             <>
                 <MovieList movies={movies} genres={genres} loadingGenres={loadingGenres}
