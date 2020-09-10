@@ -150,7 +150,6 @@ export default class App extends React.Component {
         const {Sider, Content } = Layout;
         const{movies, genres, loading, error, loadingGenres,
             query, totalMoviesResults, page, currentTab, guestId, windowWidth} = this.state;
-        console.log(this.state)
 
         const spinner = loading ? <Spin indicator={<LoadingOutlined style={{ fontSize: 55 }}/>}
                               className="spinner" tip= "Loading..."/> : null;

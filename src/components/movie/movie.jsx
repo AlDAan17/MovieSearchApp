@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, Typography, Spin, Rate, message} from "antd";
+import {Card, Typography, Spin, Rate} from "antd";
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 import noPosterPicture from './noPoster.png';
@@ -32,6 +32,7 @@ export default class Movie extends React.Component {
         let genresDisplay;
         if(loadingGenres) genresDisplay = <Spin />;
         if(!loadingGenres){
+            // eslint-disable-next-line array-callback-return
             genresDisplay= genreId.map((id) => {
                 try{
                     return (
