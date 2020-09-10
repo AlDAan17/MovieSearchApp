@@ -39,7 +39,7 @@ export default class MovieService {
         );
     }
 
-    rateFilm(value, guestId, movieId) {
+    git arateFilm(value, guestId, movieId) {
         const options = {
             method: 'POST',
             headers: {

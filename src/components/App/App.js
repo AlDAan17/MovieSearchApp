@@ -63,7 +63,6 @@ export default class App extends React.Component {
     updateMovies(query, page){
         this.movieService.getMovies(query, page).then((res) =>{
             const movies = this.renovation(!res.results ? [] : res.results, this.cache);
-            console.log(movies)
             this.setState({
                 movies,
                 loading:false,
@@ -84,9 +83,7 @@ export default class App extends React.Component {
 
     updateCache = (movie, value) => {
         const formatCard = { ...movie, rating: value };
-        console.log('formatCard is: ', formatCard)
         const index = this.cache.findIndex((o) => o.id === formatCard.id);
-        console.log('index is: ', index)
         if (index === -1) {
             this.cache.push(formatCard);
         } else {
