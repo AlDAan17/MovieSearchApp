@@ -54,22 +54,32 @@ export default class App extends React.Component {
                 this.setState({
                     movies: !response.results ? [] : response.results,
                     loading: false,
-                    totalCards: response.total_results,
+                    totalMoviesResults: response.total_results,
                 });
             })
             .catch(this.onError);
     }
 
     updateMovies(query, page){
+        if (!query) {
+            return this.setState((state) =>{
+                return {
+                    movies: [],
+                    loading: false,
+                    totalMoviesResults: null,
+                }
+            });
+        }
         this.movieService.getMovies(query, page).then((res) =>{
             const movies = this.renovation(!res.results ? [] : res.results, this.cache);
-            this.setState({
-                movies,
-                loading:false,
-                totalMoviesResults: res.total_results
+            this.setState((state) =>{
+                return {
+                    movies,
+                    loading: false,
+                    totalMoviesResults: res.total_results
+                }
             })
-        })
-            .catch(this.onError);
+        }).catch(this.onError);
     }
     updateGenres(){
         this.movieService.getGenres('en').then((res) =>{
@@ -108,11 +118,13 @@ export default class App extends React.Component {
     getQuery = (word) =>{
         const {query} = this.state;
         if(word === query) return;
-        this.setState({
-            query: word,
-            error:false,
-            loading:true,
-            page: 1,
+        this.setState((state) =>{
+            return {
+                query: word,
+                error: false,
+                loading: true,
+                page: 1,
+            }
         })
     };
 
