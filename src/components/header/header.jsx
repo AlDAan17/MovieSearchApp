@@ -38,7 +38,7 @@ export default class Header extends React.Component{
         return(
             <div className="menu">
                 <Menu onSelect={selectTab} selectedKeys={[current]} mode="horizontal" className='menu__item'>
-                    <Menu.Item  key="search">Search</Menu.Item>
+                    <Menu.Item key="search">Search</Menu.Item>
                     <Menu.Item key="rated">Rated</Menu.Item>
                 </Menu>
                 {searchBar}
