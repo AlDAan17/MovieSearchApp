@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### How it looks:
+
+https://movie-search-app-mu.vercel.app/
 
 ## Available Scripts
 
