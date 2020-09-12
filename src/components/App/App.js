@@ -12,8 +12,6 @@ export default class App extends React.Component {
 
     movieService = new MovieService();
 
-    cache = [];
-
     state = {
         windowWidth: window.innerWidth,
         movies: [],
@@ -26,6 +24,7 @@ export default class App extends React.Component {
         totalMoviesResults: null,
         currentTab: 'search',
         guestId: null,
+        rating:[],
     };
 
 
@@ -52,6 +51,7 @@ export default class App extends React.Component {
             .getRatedFilms(guestId, page, language)
             .then((response) => {
                 this.setState({
+                    page: 1,
                     movies: !response.results ? [] : response.results,
                     loading: false,
                     totalMoviesResults: response.total_results,
@@ -71,7 +71,8 @@ export default class App extends React.Component {
             });
         }
         this.movieService.getMovies(query, page).then((res) =>{
-            const movies = this.renovation(!res.results ? [] : res.results, this.cache);
+            const {rating} = this.state;
+            const movies = this.renovation(!res.results ? [] : res.results, rating);
             this.setState((state) =>{
                 return {
                     movies,
@@ -91,13 +92,22 @@ export default class App extends React.Component {
             .catch(this.onError);
     }
 
-    updateCache = (movie, value) => {
+    updateRating = (movie, value) => {
         const formatCard = { ...movie, rating: value };
-        const index = this.cache.findIndex((o) => o.id === formatCard.id);
+        const {rating} = this.state;
+        const index = rating.findIndex((o) => o.id === formatCard.id);
         if (index === -1) {
-            this.cache.push(formatCard);
+            this.setState(({rating}) =>{
+                const newArr = [
+                    ...rating,
+                    formatCard
+                ];
+                return{
+                    rating:newArr
+                };
+            });
         } else {
-            this.cache[index] = formatCard;
+            rating[index] = formatCard;
         }
     };
 
@@ -167,7 +177,7 @@ export default class App extends React.Component {
         const content = hasData ? (
             <>
                 <MovieList movies={movies} genres={genres} loadingGenres={loadingGenres}
-                           query={query} guestId={guestId}  updateCache={this.updateCache}
+                           query={query} guestId={guestId}  updateRating={this.updateRating}
                            currentTab={currentTab}/>
                 <Pagination className="pagination" current={page} total={totalMoviesResults}
                             onChange={this.onChangePage} pageSize={20} size="small"

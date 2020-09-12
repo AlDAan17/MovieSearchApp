@@ -3,12 +3,12 @@ import Movie from "../movie";
 import ErrorIndicator from "../error-indicator";
 import './movie-list.css'
 
-function MovieList ({movies, genres, loadingGenres, query, guestId, updateCache, currentTab}){
+function MovieList ({movies, genres, loadingGenres, query, guestId, updateRating, currentTab}){
 
     const elements = movies.map((movie) =>{
         return <Movie key={movie.id} movie={movie} genres={genres}
                       loadingGenres={loadingGenres} guestId={guestId}
-                      updateCache={updateCache}/>
+                      updateRating={updateRating}/>
     });
 
     let message;

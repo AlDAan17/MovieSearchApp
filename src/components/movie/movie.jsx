@@ -13,14 +13,14 @@ export default class Movie extends React.Component {
     movieService = new MovieService();
 
     rate = (value) =>{
-        const {movie, guestId, updateCache } = this.props;
+        const {movie, guestId, updateRating } = this.props;
         const {id} = movie;
         if(value === 0){
             this.movieService.deleteRateMovie(guestId, id);
         }else {
             this.movieService.rateFilm(value, guestId, id);
         }
-        updateCache(movie, value);
+        updateRating(movie, value);
     }
 
     render() {
@@ -78,5 +78,5 @@ Movie.propTypes = {
         id: PropTypes.number,
     }).isRequired,
     guestId: PropTypes.string.isRequired,
-    updateCache: PropTypes.func.isRequired,
+    updateRating: PropTypes.func.isRequired,
 }
